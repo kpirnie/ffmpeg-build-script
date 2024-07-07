@@ -108,6 +108,15 @@ fail() {
 cleanup() {
     local choice
 
+    if $noact; then
+
+        echo "Cleaning up build files..."
+        rm -fr "$cwd"
+        
+        # exit the function
+        return 0;
+    fi
+
     echo
     read -p "Do you want to clean up the build files? (yes/no): " choice
 
