@@ -112,7 +112,7 @@ cleanup() {
 
         echo "Cleaning up build files..."
         rm -fr "$cwd"
-        
+
         # exit the function
         return 0;
     fi
@@ -170,6 +170,14 @@ display_ffmpeg_versions() {
 
 show_versions() {
     local choice
+
+    if $noact; then
+        # the the installed version
+        display_ffmpeg_versions
+
+        # exit the function
+        return 0
+    fi
 
     echo
     read -p "Display the installed versions? (yes/no): " choice
