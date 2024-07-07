@@ -32,6 +32,7 @@ fi
 packages="$cwd/packages"
 workspace="$cwd/workspace"
 google_speech_flag=false
+noact=false
 # Set a regex string to match and then exclude any found release candidate versions of a program. Utilize stable releases only.
 git_regex='(Rc|rc|rC|RC|alpha|beta|early|init|next|pending|pre|tentative)+[0-9]*$'
 debug=OFF
@@ -565,6 +566,7 @@ usage() {
     echo "  -j, --jobs <number>               Set the number of CPU threads for parallel processing"
     echo "  -l, --latest                      Force the script to build the latest version of dependencies if newer version is available"
     echo "  -n, --enable-gpl-and-non-free     Enable GPL and non-free codecs - https://ffmpeg.org/legal.html"
+    echo "   --noact                          Disable interactivity."
     echo "  -v, --version                     Display the current script version"
     echo
     echo "Example: bash $script_name --build --compiler=clang -j 8"
@@ -618,6 +620,9 @@ while (("$#" > 0)); do
             google_speech_flag=true
             shift
             ;;
+        --noact)
+            noact=true
+            shift;;
         *)
             usage
             exit 1
