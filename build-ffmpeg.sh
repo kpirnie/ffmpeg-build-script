@@ -639,7 +639,8 @@ while (("$#" > 0)); do
             ;;
         --noact)
             noact=true
-            shift;;
+            shift
+            ;;
         *)
             usage
             exit 1
