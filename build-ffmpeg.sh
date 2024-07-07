@@ -743,7 +743,7 @@ set_java_variables() {
                                  apt-cache search '^openjdk-[0-9]+-jdk-headless$' |
                                  sort -ruV | head -n1 | awk '{print $1}'
                              )
-        if apt -y install $latest_openjdk_version; then
+        if apt-get -y install $latest_openjdk_version; then
             set_java_variables
         else
             fail "Could not install openjdk. Line: $LINENO"
@@ -873,10 +873,10 @@ download_cuda() {
                 echo "deb [signed-by=/usr/share/keyrings/$(basename "$cuda_keyring_file")] file://$cuda_repo_dir /" | sudo tee /etc/apt/sources.list.d/cuda-repository.list
                 
                 # Update package lists
-                apt update
+                apt-get update
 
                 # Install cuda-keyring package
-                apt install -y cuda-keyring
+                apt-get install -y cuda-keyring
             else
                 warn "CUDA keyring file not found in $cuda_repo_dir. Manual intervention may be required."
             fi
@@ -894,8 +894,8 @@ download_cuda() {
     esac
 
     # Update package lists again and install CUDA toolkit
-    apt update
-    apt install -y cuda-toolkit-12-5
+    apt-get update
+    apt-get install -y cuda-toolkit-12-5
 }
 
 # Function to detect the environment and check for an NVIDIA GPU
@@ -1061,9 +1061,9 @@ apt_pkgs() {
         log "Installing available missing packages:"
         printf "       %s\n" "${available_packages[@]}"
         echo
-        apt update
-        apt install "${available_packages[@]}"
-        apt -y autoremove
+        apt-get update
+        apt-get -y install "${available_packages[@]}"
+        apt-get -y autoremove
         echo
     else
         log "No missing packages to install or all missing packages are unavailable."
